@@ -1,0 +1,77 @@
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Gerenciamento de Barbearia</title>
+        <link rel="stylesheet" href="css/style.css"> <!-- Se você tiver um arquivo de estilos -->
+    </head>
+    
+    <body>
+    
+        <h2>Cadastro de Barbearia</h2>
+        <form id="barbeariaForm">
+            <div>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+            <div>
+                <label for="telefone">Telefone:</label>
+                <input type="text" id="telefone" name="telefone" required>
+            </div>
+            <div>
+                <button type="button" onclick="cadastrarBarbearia()">Cadastrar</button>
+            </div>
+        </form>
+    
+        <h3>Atualizar Barbearia</h3>
+        <form id="updateForm">
+            <div>
+                <label for="updateId">ID:</label>
+                <input type="text" id="updateId" required>
+            </div>
+            <div>
+                <label for="updateNome">Nome:</label>
+                <input type="text" id="updateNome" required>
+            </div>
+            <div>
+                <label for="updateTelefone">Telefone:</label>
+                <input type="text" id="updateTelefone" required>
+            </div>
+            <div>
+                <button type="button" onclick="atualizarBarbearia()">Atualizar</button>
+            </div>
+        </form>
+    
+        <h3>Excluir Barbearia</h3>
+        <form id="deleteForm">
+            <div>
+                <label for="deleteId">ID:</label>
+                <input type="text" id="deleteId" required>
+            </div>
+            <div>
+                <button type="button" onclick="excluirBarbearia()">Excluir</button>
+            </div>
+        </form>
+
+
+        <h3>Lista de Barbearias</h3>
+        <table id="barbeariasTable">
+            <thead >
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    
+
+    </body>
+    
+    </html>
+    
+    <script src="js/script.js"></script>
