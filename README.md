@@ -24,7 +24,7 @@ A interface foi construída utilizando HTML e CSS puro, com funcionalidades de i
 
 ### Back-end:
 
-A lógica de back-end (não mostrada diretamente neste contexto) é responsável por processar as requisições CRUD (Criar, Ler, Atualizar e Deletar) feitas pela interface de usuário.
+A lógica de back-end construida em **Spring Boot** é responsável por processar as requisições CRUD (Criar, Ler, Atualizar e Deletar) feitas pela interface de usuário.
 
 ## Estilização:
 
