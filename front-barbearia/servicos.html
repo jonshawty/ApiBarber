@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Serviços</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <h2 id="barbeariaTitle">Cadastro de Serviços para Barbearia</h2>
+    <form id="servicoForm">     
+        <div>
+            <label for="servicoNome">Nome do Serviço:</label>
+            <input type="text" id="servicoNome" required>
+        </div>
+        <div>
+            <label for="servicoPreco">Preço:</label>
+            <input type="number" id="servicoPreco" required>
+        </div>
+        <div>
+            <button type="button" onclick="cadastrarServico()">Cadastrar Serviço</button>
+        </div>
+    </form>
+
+    <h3>Serviços cadastrados</h3>
+    <table id="servicosTable">
+        <thead>
+            <tr>
+                <th>Nome do Serviço</th>
+                <th>Preço</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    
+
+    <script src="js/servico.js"></script>
+</body>
+
+</html>

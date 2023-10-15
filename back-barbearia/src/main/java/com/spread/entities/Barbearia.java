@@ -20,8 +20,7 @@ public class Barbearia {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
+    private Long id;
 
     private String nome;
 
@@ -51,11 +50,11 @@ public class Barbearia {
         servico.setBarbearia(null);
     }
 
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

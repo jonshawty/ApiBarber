@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spread.entities.Barbearia;
 import com.spread.repositories.BarbeariaRepository;
+import com.spread.services.BarbeariaService;
+
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -26,24 +28,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class barbeariaController {
 
     @Autowired
-    private BarbeariaRepository barbeariaRepository;
+    private BarbeariaService barbeariaService;
 
     @GetMapping
     public List<Barbearia> ListarBarbearias() {
-
-        List<Barbearia> list = barbeariaRepository.findAll();
-        return list;
+        return barbeariaService.findAll();
     }
 
     @PostMapping
-    public ResponseEntity<Barbearia> adicionarProduto(@RequestBody Barbearia barbearia) {
-        Barbearia novoProduto = barbeariaRepository.save(barbearia);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoProduto);
+    public ResponseEntity<Barbearia> adicionarBarbearia(@RequestBody Barbearia barbearia) {
+        barbeariaService.saveValidation(barbearia);
+        Barbearia novaBarbearia = barbeariaService.save(barbearia);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novaBarbearia);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Barbearia> atualizarBarbearia(@PathVariable Long id, @RequestBody Barbearia barbeariaAtualizada) {
-        Optional<Barbearia> barbeariaExistente = barbeariaRepository.findById(id);
+        Optional<Barbearia> barbeariaExistente = barbeariaService.findById(id);
     
         if (barbeariaExistente.isPresent()) {
             Barbearia barbearia = barbeariaExistente.get();
@@ -53,7 +54,7 @@ public class barbeariaController {
             barbearia.setTelefone(barbeariaAtualizada.getTelefone());
     
             // Salvar as alterações no banco de dados
-            barbeariaRepository.save(barbearia);
+            barbeariaService.save(barbearia);
     
             return new ResponseEntity<>(barbearia, HttpStatus.OK);
         } else {
@@ -63,15 +64,27 @@ public class barbeariaController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarBarbearia(@PathVariable Long id) {
-        Optional<Barbearia> barbeariaExistente = barbeariaRepository.findById(id);
+        Optional<Barbearia> barbeariaExistente = barbeariaService.findById(id);
 
         if (barbeariaExistente.isPresent()) {
-            barbeariaRepository.deleteById(id);
+            barbeariaService.deleteById(id);
             return ResponseEntity.noContent().build();  // Retorna um status 204 No Content
         } else {
             return ResponseEntity.notFound().build();  // Retorna um status 404 Not Found
         }
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Barbearia> buscarBarbeariaPorId(@PathVariable Long id) {
+        Optional<Barbearia> barbearia = barbeariaService.findById(id);
+        
+        if (barbearia.isPresent()) {
+            return new ResponseEntity<>(barbearia.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
 
 }

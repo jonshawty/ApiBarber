@@ -1,11 +1,11 @@
 package com.spread.controllers;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +16,7 @@ import com.spread.entities.Servicos;
 import com.spread.repositories.ProdutoRepository;
 
 @RestController
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 @RequestMapping(value = "/api/servicos")
 public class servicosController {
 
@@ -23,17 +24,17 @@ public class servicosController {
     private ProdutoRepository produtoRepository;
 
     @GetMapping
-    public List<Servicos> getObjects() {
+    public List<Servicos> ListarServicos() {
 
         List<Servicos> list = produtoRepository.findAll();
         return list;
-
     }
 
-@PostMapping
-public ResponseEntity<Servicos> adicionarProduto(@RequestBody Servicos servicos) {
-    Servicos novoProduto = produtoRepository.save(servicos);
-    return ResponseEntity.status(HttpStatus.CREATED).body(novoProduto);
-}
+    @PostMapping
+    public ResponseEntity<Servicos> adicionarProduto(@RequestBody Servicos servicos) {
+        Servicos novoProduto = produtoRepository.save(servicos);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoProduto);
+    }
+
 
 }

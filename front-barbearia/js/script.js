@@ -1,10 +1,12 @@
+
 function cadastrarBarbearia() {
     const nome = document.getElementById("nome").value;
     const telefone = document.getElementById("telefone").value;
 
     const data = {
         nome: nome,
-        telefone: telefone
+        telefone: telefone,
+        servicos: []
     };
 
     fetch('http://localhost:8080/api/barbearia', {
@@ -14,14 +16,25 @@ function cadastrarBarbearia() {
         },
         body: JSON.stringify(data),
     })
+    .then(response => {
+        // Verifique se a resposta não é bem-sucedida
+        if (!response.ok) {
+            // Converta a resposta em JSON para obter detalhes do erro
+            return response.json().then(errorData => {
+                throw new Error(errorData.error);  // Lança um erro com a mensagem do servidor
+            });
+        }
+        return response;
+    })
     .then(() => {
         alert("Barbearia cadastrada com sucesso!");
         atualizarLista();
     })
     .catch((error) => {
         console.error('Erro:', error);
-        alert("Erro ao cadastrar a barbearia.");
+        alert(error.message);  // Exibe a mensagem de erro do servidor no alerta
     });
+
 }
 
 function atualizarBarbearia() {
@@ -78,13 +91,21 @@ function atualizarLista() {
         
         data.forEach(barbearia => {
             const row = tableBody.insertRow();
+            row.dataset.id = barbearia.id; // Adiciona o ID da barbearia como atributo 'data-id'
             row.insertCell(0).textContent = barbearia.id;
             row.insertCell(1).textContent = barbearia.nome;
             row.insertCell(2).textContent = barbearia.telefone;
+            
+            // Adiciona o evento de clique a cada linha
+            row.addEventListener('click', function() {
+                window.location.href = `servicos.html?id=${this.dataset.id}`;
+            });
         });
     })
     .catch(error => console.error('Erro ao buscar barbearias:', error));
 }
+
+
 
 
 window.onload = atualizarLista;
